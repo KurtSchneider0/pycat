@@ -35,25 +35,25 @@ class NamedMorphism(Morphism):
 
 class CompositeMorphism(Morphism):
 
-    def __init__(self, morphism1: Morphism, morphism2: Morphism) -> None:
+    def __init__(self, morphism1: Morphism[T], morphism2: Morphism[T]) -> None:
         self.morphism1 = morphism1
         self.morphism2 = morphism2
 
     @property 
     def components(self)  -> tuple:
-        if isinstance(self.morphism2, CompositeMorphism):
+        if isinstance(self.morphism2, CompositeMorphism[T]):
             return (self.morphism1, *self.morphism2.components)
-        elif isinstance(self.morphism2, IdentityMorphism):
+        elif isinstance(self.morphism2, IdentityMorphism[T]):
             return self.morphism1
         else:
             return (self.morphism1, self.morphism2)
 
     @property 
-    def domain(self) -> Morphism:
+    def domain(self) -> Morphism[T]:
         return self.morphism1.domain
     
     @property 
-    def codomain(self) -> Morphism:
+    def codomain(self) -> Morphism[T]:
         return self.morphism2.codomain
 
 
