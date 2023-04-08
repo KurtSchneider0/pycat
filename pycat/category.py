@@ -39,7 +39,8 @@ class CompositeMorphism(Morphism):
         self.morphism1 = morphism1
         self.morphism2 = morphism2
 
-    def components(self)  -> tuple:
+    @property
+    def components(self) -> tuple:
         if isinstance(self.morphism2, CompositeMorphism[T]):
             return (self.morphism1, *self.morphism2.components)
         elif isinstance(self.morphism2, IdentityMorphism[T]):
