@@ -39,21 +39,24 @@ class CompositeMorphism(Morphism):
         self.morphism1 = morphism1
         self.morphism2 = morphism2
 
-    @property
+    @property 
     def components(self) -> tuple:
-        if isinstance(self.morphism2, CompositeMorphism[T]):
-            return (self.morphism1, *self.morphism2.components)
-        elif isinstance(self.morphism2, IdentityMorphism[T]):
+        if isinstance(self.morphism1, CompositeMorphism):
+            if isinstance(self.morphism2, CompositeMorphism):
+                return (*self.morphism2.components, *self.morphism1.components)
+            else:
+                return (self.morphism2, *self.morphism1.components)
+        elif isinstance(self.morphism2, IdentityMorphism):
             return self.morphism1
         else:
-            return (self.morphism1, self.morphism2)
+            return (self.morphism2, self.morphism1)
 
     @property 
-    def domain(self) -> Morphism[T]:
+    def domain(self) -> Morphism:
         return self.morphism1.domain
     
     @property 
-    def codomain(self) -> Morphism[T]:
+    def codomain(self) -> Morphism:
         return self.morphism2.codomain
 
 
