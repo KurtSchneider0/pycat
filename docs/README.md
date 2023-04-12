@@ -1,3 +1,3 @@
-# Category Theory Package
+# PytCat
 
 A package implementing Data Types from Category Theory
